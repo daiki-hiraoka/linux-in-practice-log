@@ -1,0 +1,25 @@
+# 2つの環境を使い分ける。共通設定は x-common にまとめ、CPU アーキテクチャだけを変えている。
+x-common: &common
+  build: .
+  volumes:
+    - .:/work        # リポジトリを共有。Mac 側で編集したファイルがそのまま動く
+  working_dir: /work
+  cap_add:
+    - SYS_PTRACE     # strace がプロセスを追跡するのに必要
+  security_opt:
+    - seccomp:unconfined
+  tty: true
+  stdin_open: true
+
+services:
+  # 本文と同じ数値が再現される環境（execve=59、-no-pie が効く、readelf の Type が EXEC）
+  # 制約: QEMU が ptrace 未実装のため strace は動かない
+  x86:
+    <<: *common
+    platform: linux/amd64
+
+  # strace を使う実験専用の環境（ネイティブなので高速）
+  # 制約: execve=221 など、システムコール番号は本文と異なる
+  arm:
+    <<: *common
+    platform: linux/arm64
