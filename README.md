@@ -9,7 +9,7 @@
 
 | 章 | 内容 |
 |---|---|
-| [2章 プロセス管理（基礎編）](notes/02-process-management-1.md) | fork / execve / 実行ファイルの構造 / 仮想記憶の2階層 |
+| [2章 プロセス管理（基礎編）](notes/02-process-management-1.md) | fork / execve / プロセスの終了とゾンビ / 実行ファイルの構造 / 仮想記憶の2階層 |
 
 ## 実験環境
 
