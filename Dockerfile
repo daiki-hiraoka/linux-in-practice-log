@@ -10,6 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # macOS 上のコンテナからは KVM を触れないため除外している。
 RUN apt-get update && apt-get install -y --no-install-recommends \
       binutils \
+      file \
       build-essential \
       golang \
       sysstat \

@@ -168,6 +168,22 @@ Entry point address:  0x401050
 
 `Type: EXEC` は `-no-pie` が効いた証拠（macOS では PIE 必須のため無視される → [環境の制約](../README.md#macos-での制約)）。
 
+### PIE かどうかを見分ける
+
+同じソースを `-no-pie` あり／なしでビルドして比べると違いがはっきり出る。
+
+| | `-no-pie` あり | デフォルト（PIE） |
+|---|---|---|
+| `readelf -h` の Type | `EXEC` (Executable file) | `DYN` (Shared object file) |
+| Entry point | `0x401050`（絶対番地） | `0x1060`（先頭からの相対位置） |
+| `file` の出力 | `ELF 64-bit LSB executable` | `ELF 64-bit LSB shared object` |
+
+PIE（Position Independent Executable）は「どこに配置されてもいい実行ファイル」なので、共有ライブラリと同じ `DYN` 扱いになり、絶対番地を持たない。配置先は実行時に決まる（ASLR）。
+
+本が `-no-pie` を指定するのは、**毎回同じアドレスが観察できるようにするため**。PIE のままだと実行のたびにメモリ配置が変わり、本文の数値と突き合わせられない。4章で `/proc/<PID>/maps` を見るときに効いてくる。
+
+> `file` の表記はバージョン依存で、Ubuntu 20.04 のものは PIE を `pie executable` ではなく `shared object` と表示する。確実なのは `readelf -h` の `Type`。
+
 ---
 
 ## メモリは2階層でできている
