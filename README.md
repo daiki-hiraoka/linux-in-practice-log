@@ -9,7 +9,8 @@
 
 | 章 | 内容 |
 |---|---|
-| [2章 プロセス管理（基礎編）](notes/02-process-management-1.md) | fork / execve / プロセスの終了とゾンビ / 実行ファイルの構造 / 仮想記憶の2階層 |
+| [1章 システムの初期化](notes/01-operating-system-overview.md) | ファームウェア / ブートローダ / 起動デバイス / デバイス認識 |
+| [2章 プロセス管理（基礎編）](notes/02-process-management-1.md) | fork / execve / プロセスの終了・ゾンビ・init / 実行ファイルの構造 / 仮想記憶の2階層 |
 
 ## 実験環境
 
